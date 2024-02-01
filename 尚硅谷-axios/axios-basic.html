@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <button>GET</button>
+        <button>POST</button>
+        <button>PUT</button>
+        <button>DELETE</button>
+        <script>
+            const btns = document.querySelectorAll('button')
+            btns[0].addEventListener('click', () => {
+                axios({
+                    // 請求類型
+                    method: 'GET',
+                    // URL
+                    url: 'http://localhost:3000/posts/2',
+                }).then((res) => {
+                    console.log(res)
+                })
+            })
+
+            btns[1].addEventListener('click', () => {
+                axios({
+                    // 請求類型
+                    method: 'POST',
+                    // URL
+                    url: 'http://localhost:3000/posts',
+                    // 請求資料
+                    data: {
+                        title: '天氣不錯',
+                        author: '張三',
+                    },
+                }).then((res) => {
+                    console.log(res)
+                })
+            })
+
+            btns[2].addEventListener('click', () => {
+                axios({
+                    // 請求類型
+                    method: 'PUT',
+                    // URL
+                    url: 'http://localhost:3000/posts/6b62',
+                    // 請求資料
+                    data: {
+                        title: '天氣不錯',
+                        author: '李四',
+                    },
+                }).then((res) => {
+                    console.log(res)
+                })
+            })
+
+            btns[3].addEventListener('click', () => {
+                axios({
+                    // 請求類型
+                    method: 'delete',
+                    // URL
+                    url: 'http://localhost:3000/posts/111d',
+                    // 在刪除時，不需要請求資料
+                }).then((res) => {
+                    console.log(res)
+                })
+            })
+        </script>
+    </body>
+</html>

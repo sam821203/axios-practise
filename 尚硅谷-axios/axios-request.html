@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <button>GET</button>
+        <button>POST</button>
+        <button>PUT</button>
+        <button>DELETE</button>
+        <script>
+            const btns = document.querySelectorAll('button')
+
+            // 發送 GET 請求
+            btns[0].addEventListener('click', () => {
+                axios
+                    .request({
+                        method: 'GET',
+                        url: 'http://localhost:3000/comments',
+                    })
+                    .then((res) => {
+                        console.log(res)
+                    })
+            })
+
+            // 發送 POST 請求
+            btns[1].addEventListener('click', () => {
+                axios
+                    .post('http://localhost:3000/comments', {
+                        text: 'a comment about post 2',
+                        postId: '2',
+                    })
+                    .then((res) => {
+                        console.log(res)
+                    })
+            })
+        </script>
+    </body>
+</html>
