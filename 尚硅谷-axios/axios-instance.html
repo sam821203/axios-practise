@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <button>GET</button>
+        <button>POST</button>
+        <button>PUT</button>
+        <button>DELETE</button>
+        <script>
+            const btns = document.querySelectorAll('button')
+
+            // 創建實例對象，使用 create。create 裡的參數放配置對象
+            // 這樣寫法的好處是，可以針對不同的服務器發送請求
+            // https://api.apiopen.top/getJoke
+            const instance = axios.create({
+                baseURL: 'https://api.apiopen.top',
+                timeout: 2000,
+            })
+
+            const instance2 = axios.create({
+                baseURL: 'https://b.com',
+                timeout: 2000,
+            })
+
+            // 這裡 instance 和 axios 的對象功能幾乎一樣
+            // console.log('instance: ', instance)
+            instance({
+                url: '/getJoke',
+            }).then((res) => {
+                console.log(res)
+            })
+
+            // 借用封裝好的實例對象發送請求
+            // 上下兩種請求方式是一樣的
+            instance.get('/getJoke').then((res) => {
+                console.log(res)
+            })
+        </script>
+    </body>
+</html>

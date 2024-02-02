@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <button>GET</button>
+        <button>POST</button>
+        <button>PUT</button>
+        <button>DELETE</button>
+        <script>
+            const btns = document.querySelectorAll('button')
+
+            // 默認配置
+            axios.defaults.method = 'GET'
+            axios.defaults.baseURL = 'http://localhost:3000'
+            axios.defaults.params = { id: 100 }
+            // 如果三秒內沒有響應，則請求會被取消
+            axios.defaults.timeout = 3000
+
+            // 發送 GET 請求
+            btns[0].addEventListener('click', () => {
+                axios
+                    .request({
+                        // method 即可省略不寫
+                        url: '/posts',
+                    })
+                    .then((res) => {
+                        console.log(res)
+                    })
+            })
+        </script>
+    </body>
+</html>

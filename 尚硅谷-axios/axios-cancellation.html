@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <button>GET</button>
+        <button>Cancel</button>
+        <script>
+            const btns = document.querySelectorAll('button')
+            let cancel = null
+
+            // 發送 GET 請求
+            btns[0].addEventListener('click', () => {
+                // 發送請求前，先檢查上個請求是否已經完成，如果尚未完成，則取消請求
+                if (cancel !== null) {
+                    cancel()
+                }
+                axios
+                    .request({
+                        method: 'GET',
+                        url: 'http://localhost:3000/posts',
+                        // 1. 添加配對對象的屬性
+                        cancelToken: new axios.CancelToken(function (cancellation) {
+                            cancel = cancellation
+                        }),
+                    })
+                    .then((res) => {
+                        console.log(res)
+                        // 初始化 cancel
+                        cancel = null
+                    })
+            })
+
+            // 綁定第二個事件取消請求
+            btns[1].addEventListener('click', () => {
+                cancel()
+            })
+        </script>
+    </body>
+</html>

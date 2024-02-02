@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <button>GET</button>
+        <button>POST</button>
+        <button>PUT</button>
+        <button>DELETE</button>
+        <script>
+            // Promise
+            // 1. 設置請求攔截器
+            // 請求攔截器，是後進的先執行
+            axios.interceptors.request.use(
+                // 請求攔截器成功
+                function (config) {
+                    console.log('請求攔截器成功')
+                    // 一般在這裡可以對 config 做一些處理，比如給請求加上 token  或其他參數
+                    config.params = { title: 'title 2' }
+                    return config
+                },
+                // 請求攔截器失敗
+                function (error) {
+                    console.log('請求攔截器失敗')
+                    return Promise.reject(error)
+                }
+            )
+
+            // 2. 設置響應攔截器
+            // 響應攔截器，是先進的先執行
+            axios.interceptors.response.use(
+                // 響應攔截器成功
+                function (response) {
+                    console.log('響應攔截器成功')
+                    // Any status code that lie within the range of 2xx cause this function to trigger
+                    return response.data
+                },
+                // 響應攔截器失敗
+                function (error) {
+                    // Any status codes that falls outside the range of 2xx cause this function to trigger
+                    console.log('響應攔截器失敗')
+                    return Promise.reject(error)
+                }
+            )
+
+            // 3. 發送請求
+            axios({
+                method: 'GET',
+                url: 'http://localhost:3000/posts',
+            })
+                .then((res) => {
+                    console.log('請求成功: ', res)
+                })
+                .catch((err) => {
+                    console.log('請求失敗: ', err)
+                })
+        </script>
+    </body>
+</html>
